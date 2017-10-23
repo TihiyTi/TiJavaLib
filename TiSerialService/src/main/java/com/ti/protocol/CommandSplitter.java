@@ -1,5 +1,7 @@
 package com.ti.protocol;
 
+import com.ti.checkers.CommandSplittable;
+
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +12,15 @@ public class CommandSplitter <REQUEST>  implements CommandSplittable<REQUEST> {
     public Map<Byte, Integer> commandSizes;
     boolean partCommand = false;
     private AbstractProtocol protocol;
+    byte sync;
 
-    public CommandSplitter(AbstractProtocol protocol) {
+    // TODO: 23.10.2017 реализовать возможность синхнонизации несколькими байтами
+    public CommandSplitter(byte sync) {
+        this.sync = sync;
+    }
+
+    @Override
+    public void setProtocol(AbstractProtocol protocol) {
         this.protocol = protocol;
     }
 
@@ -21,6 +30,12 @@ public class CommandSplitter <REQUEST>  implements CommandSplittable<REQUEST> {
         while(deque.size()>2 && !partCommand){
             splitCommand(deque);
         }
+    }
+
+    @Override
+    public ByteBuffer getSyncSequence() {
+        // TODO: 23.10.2017 буффер можно не создавать, а передавать ссылку на постоянный буфер
+        return ByteBuffer.allocate(1).put(sync);
     }
 
     @Override

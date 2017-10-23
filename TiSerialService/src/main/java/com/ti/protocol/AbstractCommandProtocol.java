@@ -1,5 +1,7 @@
 package com.ti.protocol;
 
+import com.ti.checkers.CommandSplittable;
+import com.ti.checkers.ProtocolCheckable;
 import com.ti.command.AbstractCommand;
 import com.ti.CommandTypable;
 
@@ -12,6 +14,13 @@ import java.util.stream.Collectors;
 
 public abstract class AbstractCommandProtocol<COMMAND_TYPE extends CommandTypable> extends AbstractProtocol<AbstractCommand, AbstractCommand> {
     private Set<COMMAND_TYPE> commandable = new HashSet<>();
+
+    public AbstractCommandProtocol(ProtocolCheckable protocolChecker, CommandSplittable commandSplitter) {
+        super(protocolChecker, commandSplitter);
+    }
+
+    protected AbstractCommandProtocol() {
+    }
 
     protected void fillSetOfCommandType(COMMAND_TYPE[] arrayOfCommanType){
         commandable.addAll(Arrays.asList(arrayOfCommanType));

@@ -1,5 +1,7 @@
 package com.ti.protocol;
 
+import com.ti.checkers.ProtocolCheckable;
+
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class OneSynchroByteProtocolChecker implements ProtocolCheckable {
