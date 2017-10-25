@@ -75,7 +75,7 @@ public class SawSynchroByteProtocolChecker implements ProtocolCheckable, Command
 
     @Override
     public void parseQueue(ConcurrentLinkedDeque deque) {
-        while(deque.size() > wordSizeInByte){
+        while(deque.size() >= wordSizeInByte){
             inputCurrentSawValue = (byte)deque.poll();
             ByteBuffer buffer = ByteBuffer.allocate(dataSizeInByte);
             for (int i = 0; i < dataSizeInByte; i++) {
