@@ -5,6 +5,7 @@ import com.ti.SerialControllable;
 import com.ti.checkers.CommandSplittable;
 import com.ti.checkers.ProtocolCheckable;
 import com.ti.checkers.SawSynchroByteProtocolChecker;
+import com.ti.device.DeviceInterface;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,15 +16,17 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 public abstract class AbstractProtocol<RESPONSE, REQUEST> implements Protocol<RESPONSE, REQUEST>{
     private static final Logger LOG = LogManager.getLogger("serialServiceLogger");
     private ProtocolCheckable protocolChecker = new OneSynchroByteProtocolChecker();
-    private CommandSplittable commandSplitter = new CommandSplitter((byte)0xAA);
+    private CommandSplittable commandSplitter;
 
     private List<Protocol<RESPONSE, REQUEST>> protocolList = new ArrayList<>(Collections.singletonList(this));
 
-    private ComPortWorker sender;
+    private DeviceInterface sender;
     List<SerialControllable<RESPONSE, REQUEST>> serialControllableList = new ArrayList<>();
 
     public AbstractProtocol() {
-        commandSplitter.setProtocol(this);
+        // TODO: 25.10.2017 удалить автоматическое задание splitter
+//        commandSplitter = new CommandSplitter((byte)0xAA);
+//        commandSplitter.setProtocol(this);
     }
 
     public AbstractProtocol(boolean readProperties) {
@@ -77,17 +80,22 @@ public abstract class AbstractProtocol<RESPONSE, REQUEST> implements Protocol<RE
     }
 
     //Transceiver method
-    public void setSender(ComPortWorker sender){
+    public void setSender(DeviceInterface sender){
         this.sender = sender;
     }
     @Override
     public void sendResponse(RESPONSE response){
         ByteBuffer commandBuffer = protocolList.stream().map(x->x.createResponseToByte(response)).filter(x->(x!=null)).findFirst().get();
-        ByteBuffer preBuffer = commandSplitter.getSyncSequence();
         commandBuffer.rewind();
-        preBuffer.rewind();
-        ByteBuffer sendBuffer = ByteBuffer.allocate(preBuffer.limit()+commandBuffer.limit()).put(preBuffer).put(commandBuffer);
-        LOG.trace("ToUART: "+Arrays.toString(sendBuffer.array()));
-        sender.sendDataArray(sendBuffer);
+        if(commandSplitter != null){
+            ByteBuffer preBuffer = commandSplitter.getSyncSequence();
+            preBuffer.rewind();
+            ByteBuffer sendBuffer = ByteBuffer.allocate(preBuffer.limit()+commandBuffer.limit()).put(preBuffer).put(commandBuffer);
+            LOG.trace("ToUART: "+Arrays.toString(sendBuffer.array()));
+            sender.sendDataArray(sendBuffer);
+        }else {
+            LOG.trace("ToUART: "+Arrays.toString(commandBuffer.array()));
+            sender.sendDataArray(commandBuffer);
+        }
     }
 }

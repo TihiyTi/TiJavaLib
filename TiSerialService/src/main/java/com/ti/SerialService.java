@@ -1,16 +1,27 @@
 package com.ti;
 
-import com.ti.protocol.ComPortWorker;
+import com.ti.device.DeviceInterface;
 import com.ti.protocol.AbstractProtocol;
+import com.ti.protocol.ComPortWorker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class SerialService<RESPONSE, REQUEST> implements SerialSettable{
-    private ComPortWorker comPort = new ComPortWorker();
+    private DeviceInterface comPort;
     private AbstractProtocol<RESPONSE, REQUEST> protocol;
     private List<AbstractProtocol<RESPONSE, REQUEST>> listChildrenProtocol = new ArrayList<>();
+
+
+    public SerialService() {
+        comPort  = new ComPortWorker();
+    }
+
+    public SerialService(DeviceInterface comPort) {
+        this.comPort = comPort;
+    }
+
 
     public void setProtocol(AbstractProtocol<RESPONSE, REQUEST> mainProtocol){
         protocol = mainProtocol;
@@ -33,9 +44,9 @@ public class SerialService<RESPONSE, REQUEST> implements SerialSettable{
     }
 
     // TODO: 13.03.2017 метод добавлен для AnalogTester, возможно стоит переписать архитектурно более правильно
-    @Override
-    public void reopenPort(String port, int rate){
-        comPort.reopenPort(port);
-    }
+//    @Override
+//    public void reopenPort(String port, int rate){
+//        comPort.reopenPort(port);
+//    }
 
 }

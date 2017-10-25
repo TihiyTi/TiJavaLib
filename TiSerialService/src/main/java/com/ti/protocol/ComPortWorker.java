@@ -1,6 +1,7 @@
 package com.ti.protocol;
 
 import com.ti.PropertiesService;
+import com.ti.device.DeviceInterface;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
@@ -11,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 import java.nio.ByteBuffer;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class ComPortWorker {
+public class ComPortWorker implements DeviceInterface{
     private static final Logger LOG = LogManager.getLogger(ComPortWorker.class.getName());
 
     private static String PORT_NAME = "portName";
@@ -59,6 +60,13 @@ public class ComPortWorker {
 //                e.printStackTrace();
 //            }
 //        }
+    }
+    public void closePort(){
+        try {
+            port.closePort();
+        } catch (SerialPortException e) {
+            e.printStackTrace();
+        }
     }
     public void reopenPort(String portName){
         try {
