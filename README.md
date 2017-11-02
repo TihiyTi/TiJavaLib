@@ -13,3 +13,14 @@
 ##TiSerialService
 
 Успешно тестировался до скоростей 3Мбод. На 4Мбод либо FTDI, либо Windows драйвер резко сбрасывает скорость.
+
+##### Структура 
+````
+aplication   Application protocolimplements
+                        |
+comm|--implem      Protocol implements
+    |                   |
+    |--core        Procotol core
+    |                   |
+    |--dev          Device  ()
+````

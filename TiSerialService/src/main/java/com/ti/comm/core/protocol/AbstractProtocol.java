@@ -1,11 +1,11 @@
-package com.ti.protocol;
+package com.ti.comm.core.protocol;
 
 import com.ti.PropertiesService;
-import com.ti.SerialControllable;
-import com.ti.checkers.CommandSplittable;
-import com.ti.checkers.ProtocolCheckable;
-import com.ti.checkers.SawSynchroByteProtocolChecker;
-import com.ti.device.DeviceInterface;
+import com.ti.comm.core.checkers.CommandSplittable;
+import com.ti.comm.core.checkers.ProtocolCheckable;
+import com.ti.comm.implem.saw.SawSynchroByteProtocolChecker;
+import com.ti.comm.dev.DeviceInterface;
+import com.ti.comm.implem.sync.OneSynchroByteProtocolChecker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +13,7 @@ import java.nio.ByteBuffer;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-public abstract class AbstractProtocol<RESPONSE, REQUEST> implements Protocol<RESPONSE, REQUEST>{
+public abstract class AbstractProtocol<RESPONSE, REQUEST> implements Protocol<RESPONSE, REQUEST> {
     private static final Logger LOG = LogManager.getLogger("serialServiceLogger");
     private ProtocolCheckable protocolChecker = new OneSynchroByteProtocolChecker();
     private CommandSplittable commandSplitter;
@@ -21,7 +21,7 @@ public abstract class AbstractProtocol<RESPONSE, REQUEST> implements Protocol<RE
     private List<Protocol<RESPONSE, REQUEST>> protocolList = new ArrayList<>(Collections.singletonList(this));
 
     private DeviceInterface sender;
-    List<SerialControllable<RESPONSE, REQUEST>> serialControllableList = new ArrayList<>();
+    protected List<SerialControllable<RESPONSE, REQUEST>> serialControllableList = new ArrayList<>();
 
     public AbstractProtocol() {
         // TODO: 25.10.2017 удалить автоматическое задание splitter
@@ -69,7 +69,7 @@ public abstract class AbstractProtocol<RESPONSE, REQUEST> implements Protocol<RE
     public boolean checkProtocol(ConcurrentLinkedDeque<Byte> deque){
         return protocolChecker.checkProtocol(deque);
     }
-    void parseQueue(ConcurrentLinkedDeque<Byte> deque){
+    public void parseQueue(ConcurrentLinkedDeque<Byte> deque){
         commandSplitter.parseQueue(deque);
     }
     public void upByteBuffer(ByteBuffer buffer){

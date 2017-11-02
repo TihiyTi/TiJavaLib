@@ -1,7 +1,6 @@
-package com.ti;
+package com.ti.comm.core.protocol;
 
-import com.ti.command.AbstractCommand;
-import com.ti.protocol.Protocol;
+import com.ti.comm.core.command.AbstractCommand;
 
 import java.util.ArrayList;
 import java.util.List;

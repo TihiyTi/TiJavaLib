@@ -1,6 +1,6 @@
-package com.ti.device;
+package com.ti.comm.dev;
 
-import com.ti.protocol.AbstractProtocol;
+import com.ti.comm.core.protocol.AbstractProtocol;
 
 import java.nio.ByteBuffer;
 

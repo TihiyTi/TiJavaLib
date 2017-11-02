@@ -1,9 +1,9 @@
-package com.ti.protocol;
+package com.ti.comm.core.protocol;
 
-import com.ti.checkers.CommandSplittable;
-import com.ti.checkers.ProtocolCheckable;
-import com.ti.command.AbstractCommand;
-import com.ti.CommandTypable;
+import com.ti.comm.core.checkers.CommandSplittable;
+import com.ti.comm.core.checkers.ProtocolCheckable;
+import com.ti.comm.core.command.AbstractCommand;
+import com.ti.comm.core.command.CommandTypable;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
@@ -26,7 +26,7 @@ public abstract class AbstractCommandProtocol<COMMAND_TYPE extends CommandTypabl
         commandable.addAll(Arrays.asList(arrayOfCommanType));
     }
 
-//    protected abstract void supportCommand(AbstractCommand command);
+//    protected abstract void supportCommand(AbstractCommand com.ti.comm.core.command);
 
     @Override
     public ByteBuffer createResponseToByte(AbstractCommand command) {

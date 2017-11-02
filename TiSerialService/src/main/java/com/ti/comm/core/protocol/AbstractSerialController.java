@@ -1,11 +1,9 @@
-package com.ti;
-
-import com.ti.protocol.Protocol;
+package com.ti.comm.core.protocol;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractSerialController<RESPONSE, REQUEST> implements SerialControllable<RESPONSE, REQUEST>{
+public abstract class AbstractSerialController<RESPONSE, REQUEST> implements SerialControllable<RESPONSE, REQUEST> {
     List<Protocol<RESPONSE, REQUEST>> list = new ArrayList<>();
 
     @Override

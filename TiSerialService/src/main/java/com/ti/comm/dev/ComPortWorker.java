@@ -1,7 +1,7 @@
-package com.ti.protocol;
+package com.ti.comm.dev;
 
 import com.ti.PropertiesService;
-import com.ti.device.DeviceInterface;
+import com.ti.comm.core.protocol.AbstractProtocol;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;

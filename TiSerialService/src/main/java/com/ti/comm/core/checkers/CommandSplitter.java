@@ -1,6 +1,6 @@
-package com.ti.protocol;
+package com.ti.comm.core.checkers;
 
-import com.ti.checkers.CommandSplittable;
+import com.ti.comm.core.protocol.AbstractProtocol;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class CommandSplitter <REQUEST>  implements CommandSplittable<REQUEST> {
         bufferByteList.add(deque.poll());
         Byte command = deque.poll();
         bufferByteList.add(command);
-//            System.out.println("Command " + command);
+//            System.out.println("Command " + com.ti.comm.core.command);
         if(commandSizes.containsKey(command) && deque.size() >=  commandSizes.get(command)){
             int commandSize = commandSizes.get(command);
             byte[] data = new byte[commandSize];

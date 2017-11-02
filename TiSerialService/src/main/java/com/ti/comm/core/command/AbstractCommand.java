@@ -1,4 +1,4 @@
-package com.ti.command;
+package com.ti.comm.core.command;
 
 public abstract class AbstractCommand<COMMAND_TYPE> implements Requestable, Responsable{
 

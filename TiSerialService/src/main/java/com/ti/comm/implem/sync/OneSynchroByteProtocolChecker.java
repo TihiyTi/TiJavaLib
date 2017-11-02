@@ -1,6 +1,6 @@
-package com.ti.protocol;
+package com.ti.comm.implem.sync;
 
-import com.ti.checkers.ProtocolCheckable;
+import com.ti.comm.core.checkers.ProtocolCheckable;
 
 import java.util.concurrent.ConcurrentLinkedDeque;
 

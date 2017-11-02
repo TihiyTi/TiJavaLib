@@ -1,6 +1,6 @@
 package com.ti;
 
-import com.ti.checkers.SawSynchroByteProtocolChecker;
+import com.ti.comm.implem.saw.SawSynchroByteProtocolChecker;
 import org.junit.Assert;
 import org.junit.Test;
 

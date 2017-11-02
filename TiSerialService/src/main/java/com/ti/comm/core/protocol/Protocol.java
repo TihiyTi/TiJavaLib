@@ -1,4 +1,4 @@
-package com.ti.protocol;
+package com.ti.comm.core.protocol;
 
 import java.nio.ByteBuffer;
 

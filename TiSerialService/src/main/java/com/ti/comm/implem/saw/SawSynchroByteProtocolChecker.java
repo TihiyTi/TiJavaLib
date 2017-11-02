@@ -1,6 +1,8 @@
-package com.ti.checkers;
+package com.ti.comm.implem.saw;
 
-import com.ti.protocol.AbstractProtocol;
+import com.ti.comm.core.checkers.CommandSplittable;
+import com.ti.comm.core.checkers.ProtocolCheckable;
+import com.ti.comm.core.protocol.AbstractProtocol;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,7 +10,7 @@ import java.nio.ByteBuffer;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class SawSynchroByteProtocolChecker implements ProtocolCheckable, CommandSplittable{
+public class SawSynchroByteProtocolChecker implements ProtocolCheckable, CommandSplittable {
     private static final Logger LOG = LogManager.getLogger("serialServiceLogger");
 
     private int dataSizeInByte;

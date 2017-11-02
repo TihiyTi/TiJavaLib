@@ -1,6 +1,6 @@
-package com.ti.checkers;
+package com.ti.comm.core.checkers;
 
-import com.ti.protocol.AbstractProtocol;
+import com.ti.comm.core.protocol.AbstractProtocol;
 
 import java.nio.ByteBuffer;
 import java.util.Map;

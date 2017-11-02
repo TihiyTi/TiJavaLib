@@ -1,6 +1,4 @@
-package com.ti;
-
-import com.ti.command.AbstractCommand;
+package com.ti.comm.core.command;
 
 import java.util.Map;
 

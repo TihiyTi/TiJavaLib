@@ -1,6 +1,4 @@
-package com.ti;
-
-import com.ti.protocol.Protocol;
+package com.ti.comm.core.protocol;
 
 public interface  SerialControllable <RESPONSE, REQUEST> {
     //Call from AbstractProtocol to send REQUEST from Controller to application

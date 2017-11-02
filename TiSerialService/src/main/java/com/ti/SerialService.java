@@ -1,8 +1,9 @@
 package com.ti;
 
-import com.ti.device.DeviceInterface;
-import com.ti.protocol.AbstractProtocol;
-import com.ti.protocol.ComPortWorker;
+import com.ti.comm.core.protocol.SerialControllable;
+import com.ti.comm.dev.DeviceInterface;
+import com.ti.comm.core.protocol.AbstractProtocol;
+import com.ti.comm.dev.ComPortWorker;
 
 import java.util.ArrayList;
 import java.util.Arrays;

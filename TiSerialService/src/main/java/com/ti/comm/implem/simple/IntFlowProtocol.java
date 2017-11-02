@@ -1,9 +1,11 @@
-package com.ti.protocol;
+package com.ti.comm.implem.simple;
+
+import com.ti.comm.core.protocol.AbstractProtocol;
 
 import java.nio.ByteBuffer;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class IntFlowProtocol extends AbstractProtocol<Integer,Integer>{
+public class IntFlowProtocol extends AbstractProtocol<Integer,Integer> {
 
     @Override
     public ByteBuffer createResponseToByte(Integer intValue) {
@@ -22,7 +24,7 @@ public class IntFlowProtocol extends AbstractProtocol<Integer,Integer>{
         return true;
     }
     @Override
-    void parseQueue(ConcurrentLinkedDeque<Byte> deque){
+    public void parseQueue(ConcurrentLinkedDeque<Byte> deque){
         if(deque.size()>4){
             ByteBuffer buffer = ByteBuffer.allocate(4);
             buffer.put(deque.poll());
