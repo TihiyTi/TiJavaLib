@@ -20,4 +20,7 @@ public class ByteController extends AbstractSerialController<ByteBuffer,ByteBuff
         ByteBuffer buffer = ByteBuffer.wrap(array);
         toServiceResponse(buffer);
     }
+    public void send(ByteBuffer buffer){
+        toServiceResponse(buffer);
+    }
 }

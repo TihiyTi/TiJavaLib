@@ -9,6 +9,7 @@ import com.ti.comm.implem.sync.OneSynchroByteProtocolChecker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.xml.bind.DatatypeConverter;
 import java.nio.ByteBuffer;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
@@ -91,10 +92,10 @@ public abstract class AbstractProtocol<RESPONSE, REQUEST> implements Protocol<RE
             ByteBuffer preBuffer = commandSplitter.getSyncSequence();
             preBuffer.rewind();
             ByteBuffer sendBuffer = ByteBuffer.allocate(preBuffer.limit()+commandBuffer.limit()).put(preBuffer).put(commandBuffer);
-            LOG.trace("ToUART: "+Arrays.toString(sendBuffer.array()));
+            LOG.trace("ToUART: "+DatatypeConverter.printHexBinary(sendBuffer.array()));
             sender.sendDataArray(sendBuffer);
         }else {
-            LOG.trace("ToUART: "+Arrays.toString(commandBuffer.array()));
+            LOG.trace("ToUART: "+DatatypeConverter.printHexBinary(commandBuffer.array()));
             sender.sendDataArray(commandBuffer);
         }
     }

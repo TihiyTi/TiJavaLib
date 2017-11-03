@@ -5,12 +5,12 @@ import com.ti.comm.core.command.AbstractCommand;
 import java.nio.ByteBuffer;
 
 public class SawCommand extends AbstractCommand {
-    private int reo_1 = 0;
-    private int ecg_1 = 0;
-    private int currentControl_1 = 0;
-    private int reo_2 = 0;
-    private int ecg_2 = 0;
-    private int currentControl_2 = 0;
+    protected int reo_1 = 0;
+    protected int ecg_1 = 0;
+    protected int currentControl_1 = 0;
+    protected int reo_2 = 0;
+    protected int ecg_2 = 0;
+    protected int currentControl_2 = 0;
 
     // TODO: 23.10.2017 "коммандный байт" должен добавляться в abstractCommand  если
     // type не равен null
