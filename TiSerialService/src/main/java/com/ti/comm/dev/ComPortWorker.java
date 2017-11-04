@@ -1,5 +1,7 @@
 package com.ti.comm.dev;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+import com.ti.FileService;
 import com.ti.PropertiesService;
 import com.ti.comm.core.protocol.AbstractProtocol;
 import jssc.SerialPort;
@@ -22,6 +24,8 @@ public class ComPortWorker implements DeviceInterface{
     private int count = 0;
 
     private AbstractProtocol protocol;
+
+    FileService fileService = new FileService("data/out.bin");
 
     public ComPortWorker() {
         String portName = PropertiesService.getGlobalProperty(PORT_NAME);
@@ -119,12 +123,16 @@ public class ComPortWorker implements DeviceInterface{
                 } catch (SerialPortException e) {
                     e.printStackTrace();
                 }
+                fileService.writeBytes(ByteBuffer.wrap(buf));
                 for (byte element: buf){
                     deque.add(element);
                 }
                 if(protocol.checkProtocol(deque)){
                     protocol.parseQueue(deque);
                 }
+            }else if (serialPortEvent.isBREAK()|serialPortEvent.isCTS()|serialPortEvent.isDSR()|serialPortEvent.isERR()|serialPortEvent.isRING()|
+                    serialPortEvent.isRLSD()|serialPortEvent.isRXFLAG()|serialPortEvent.isTXEMPTY()){
+                System.out.println("Something wrong");
             }
         }
     }
