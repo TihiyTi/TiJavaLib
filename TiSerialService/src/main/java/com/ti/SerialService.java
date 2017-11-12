@@ -30,6 +30,15 @@ public class SerialService<RESPONSE, REQUEST> implements SerialSettable{
         protocol.setSender(comPort);
         comPort.setProtocol(protocol);
     }
+    /**
+     * Переинициализирует основной протокол (mainProtocol) новым устройством ввода/вывода.
+     * Дочерние протоколы НЕ переинициализируются!
+     * @param device новое устройство ввода вывода
+    */
+    public void reinitDevice(DeviceInterface device){
+        protocol.setSender(device);
+        device.setProtocol(protocol);
+    }
 
     @SafeVarargs
     public final void addChildrenProtocol(AbstractProtocol<RESPONSE, REQUEST>... childrenProtocols){
