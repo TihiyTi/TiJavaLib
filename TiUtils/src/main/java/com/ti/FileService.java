@@ -50,13 +50,16 @@ public class FileService {
     }
 
 
-    public void writeBytes(ByteBuffer buffer){
+    public int writeBytes(ByteBuffer buffer){
         buffer.rewind();
         Future<Integer> res = channel.write(buffer, writePosition);
         try {
-            writePosition = writePosition + (long)res.get();
+            int num = res.get();
+            writePosition = writePosition + num;
+            return num;
         } catch (InterruptedException | ExecutionException e1) {
             e1.printStackTrace();
+            return 0;
         }
     }
 
@@ -71,6 +74,7 @@ public class FileService {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+        if(readByte < 0){readByte = 0;}
         return (ByteBuffer) buffer.limit(readByte);
     }
 

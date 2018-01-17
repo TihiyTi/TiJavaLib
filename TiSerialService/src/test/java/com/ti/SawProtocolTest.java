@@ -12,7 +12,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class SawProtocolTest {
-    @Test(timeout = 30000)
+//    @Test(timeout = 30000)
     public void sawProtocolTest(){
         PropertiesService.setGlobalPropertyFileName(SawProtocolTest.class.getSimpleName());
         DeviceInterface device = new ComPortWorker();
@@ -38,7 +38,7 @@ public class SawProtocolTest {
         Assert.assertEquals(controller.data.size(), 60024);
     }
 
-    @Test(timeout = 1000)
+//    @Test(timeout = 1000)
     public void twoServiceByteToSawTest(){
         PropertiesService.setGlobalPropertyFileName(SawProtocolTest.class.getSimpleName());
         DeviceInterface device = new ComPortWorker();
