@@ -1,3 +1,4 @@
 //rootProject.name = 'TiJavaLib'
 include 'TiUtils'
 include 'TiSerialService'
+include 'DSP'
