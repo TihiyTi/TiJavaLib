@@ -12,7 +12,8 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class FileServiceTest {
-    private static final String TEST_FILE = "SerialService 2017-Oct-03 18-30-24.bin";
+//    private static final String TEST_FILE = "SerialService 2017-Oct-03 18-30-24.bin";
+    private static final String TEST_FILE = "MechaBin.bin";
     @Test
     public void readBytesTest() throws Exception {
         Path file = Paths.get(this.getClass().getResource(TEST_FILE).toURI());
@@ -27,11 +28,11 @@ public class FileServiceTest {
     }
 
     @Test
-    public void writeBytesTest() throws Exception {
+    public void readAndWriteBytesTest() throws Exception {
 
         Path file = Paths.get(this.getClass().getResource(TEST_FILE).toURI());
         FileService readFileService = new FileService(file);
-
+        // TODO: 21.01.2018 Add remove out.txt befor start test or erase and rewrite file
         String newFile = file.getParent().resolve("out.txt").toString();
         FileService writeFileService = new FileService(newFile);
 
@@ -41,7 +42,7 @@ public class FileServiceTest {
             int readByte = buffer.limit();
             int writeByte = writeFileService.writeBytes(buffer);
             if(readByte==0){
-                empty=true;
+                empty = true;
             }
         }
 

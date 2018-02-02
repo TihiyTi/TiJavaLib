@@ -27,17 +27,19 @@ public class DspFilter {
     /**
      * Тело теста имитирует работу SignalManager
      */
-    @Test (timeout = 1000)
+    @Test
     public void test(){
         List<Integer> intList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
 
         AbstractSignalManager<TestSignalType> manager = new TestSignalManager(TestSignalType.class);
-        intList.forEach(x-> manager.getBox().addToQueue(TestSignalType.SIG_1, x));
 
         FinalSaveFilter<Number> fin = new FinalSaveFilter<>();
         manager.getBox().addTypedConsumer(fin, TestSignalType.SIG_2);
 
+        intList.forEach(x-> manager.getBox().addToQueue(TestSignalType.SIG_1, x));
+
         while(fin.getResult().size() < 8){
+//            System.out.print( "");
         }
         System.out.println(fin.getResult().toString());
 

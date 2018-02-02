@@ -4,6 +4,7 @@ import com.sun.org.apache.xpath.internal.SourceTree;
 import com.ti.FileService;
 import com.ti.PropertiesService;
 import com.ti.comm.core.protocol.AbstractProtocol;
+import com.ti.comm.core.protocol.Protocol;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
@@ -23,7 +24,10 @@ public class ComPortWorker implements DeviceInterface{
     private SerialPort port;
     private int count = 0;
 
-    private AbstractProtocol protocol;
+    private Protocol protocol;
+    // TODO: 20.01.2018 remove flag "liteProtocol"  after finally migrate to lite protocols
+    // and remove @deprecated method
+    public boolean liteProtocol = false;
 
     FileService fileService = new FileService("data/out.bin");
 
@@ -105,9 +109,14 @@ public class ComPortWorker implements DeviceInterface{
         }
     }
 
-    public void setProtocol(AbstractProtocol protocol) {
+    public void setProtocol(Protocol protocol) {
         this.protocol = protocol;
-        protocol.setSender(this);
+
+        if(liteProtocol){
+            protocol.setDevice(this);
+        }else {
+            ((AbstractProtocol)protocol).setSender(this);
+        }
     }
 
     class SimpleProtocolListener implements SerialPortEventListener{
@@ -127,8 +136,13 @@ public class ComPortWorker implements DeviceInterface{
                 for (byte element: buf){
                     deque.add(element);
                 }
-                if(protocol.checkProtocol(deque)){
-                    protocol.parseQueue(deque);
+
+                if(liteProtocol){
+                    protocol.parse(deque);
+                }else {
+                    if(protocol.checkProtocol(deque)){
+                        protocol.parseQueue(deque);
+                    }
                 }
             }else if (serialPortEvent.isBREAK()|serialPortEvent.isCTS()|serialPortEvent.isDSR()|serialPortEvent.isERR()|serialPortEvent.isRING()|
                     serialPortEvent.isRLSD()|serialPortEvent.isRXFLAG()|serialPortEvent.isTXEMPTY()){

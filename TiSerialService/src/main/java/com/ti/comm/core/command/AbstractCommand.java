@@ -11,5 +11,7 @@ public abstract class AbstractCommand<COMMAND_TYPE> implements Requestable, Resp
         return type;
     }
 
-    public abstract void debugPrint();
+    public void debugPrint() {
+        System.out.println("Not implemented for SawCommand");
+    };
 }

@@ -51,6 +51,7 @@ public class AdvanceSignalBox<N extends Number, T  extends Enum<T>> implements M
                     //todo добавить возможность буфферезированной обработки
                     N element = queue.take();
 //                    System.out.println("Extract "+element.doubleValue()+"  from  "+ t.name());
+//                    System.out.println("CSS = "+consumerSet.size()+"  from  "+ t.name());
                     consumerSet.forEach(x-> x.putElement(element));
                 } catch (InterruptedException e) {
                     e.printStackTrace();

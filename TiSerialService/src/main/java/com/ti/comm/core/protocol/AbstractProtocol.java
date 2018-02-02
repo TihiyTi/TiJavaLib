@@ -67,9 +67,11 @@ public abstract class AbstractProtocol<RESPONSE, REQUEST> implements Protocol<RE
     }
 
     //Receive methods
+    @Override
     public boolean checkProtocol(ConcurrentLinkedDeque<Byte> deque){
         return protocolChecker.checkProtocol(deque);
     }
+    @Override
     public void parseQueue(ConcurrentLinkedDeque<Byte> deque){
         commandSplitter.parseQueue(deque);
     }

@@ -50,6 +50,7 @@ public abstract class AbstractProtocolLite<RESPONSE, REQUEST> implements Protoco
         device.sendDataArray(buffer);
     }
 
+    @Override
     public void setDevice(DeviceInterface device){this.device = device;}
 
 

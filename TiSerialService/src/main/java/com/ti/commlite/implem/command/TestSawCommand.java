@@ -1,16 +1,16 @@
-package com.ti.commlite.implem;
+package com.ti.commlite.implem.command;
 
 import com.ti.comm.core.command.AbstractCommand;
 import com.ti.commlite.core.command.AbstractSawCommand;
 
 import java.nio.ByteBuffer;
 
-public class SawCommandTest extends AbstractSawCommand<SawTypeTest> {
+public class TestSawCommand extends AbstractSawCommand<TestSignalType> {
     protected int data1 = 0;
     protected int data2 = 0;
 
-    public SawCommandTest(){}
-    public SawCommandTest(int data1, int data2){
+    public TestSawCommand(){}
+    public TestSawCommand(int data1, int data2){
         this.data1 = data1;
         this.data2 = data2;
     }
@@ -34,10 +34,10 @@ public class SawCommandTest extends AbstractSawCommand<SawTypeTest> {
     public int getData1(){return data1;}
     public int getData2(){return data2;}
     @Override
-    public int getData(SawTypeTest type){
-        if(type.equals(SawTypeTest.DATA1)){
+    public int getData(TestSignalType type){
+        if(type.equals(TestSignalType.DATA1)){
             return data1;
-        }else if (type.equals(SawTypeTest.DATA2)){
+        }else if (type.equals(TestSignalType.DATA2)){
             return data2;
         }else {
             return 0;

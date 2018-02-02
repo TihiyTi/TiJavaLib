@@ -30,9 +30,10 @@ public class SawProtocolParser implements ProtocolParser {
     public boolean checkProtocol(ConcurrentLinkedDeque<Byte> deque) {
         if(deque.peek() == inputCurrentSawValue +1){
 //            inputCurrentSawValue++;
-            LOG.trace("First byte "+ deque.peek() +" == "+ (inputCurrentSawValue+1)+" Size = " + deque.size());
+//            LOG.trace("First byte "+ deque.peek() +" == "+ (inputCurrentSawValue+1)+" Size = " + deque.size());
             return true;
         }else{
+//            LOG.trace("First byte "+ deque.peek() +" != "+ (inputCurrentSawValue+1)+" Size = " + deque.size());
             return findProtocol(deque);
         }
     }

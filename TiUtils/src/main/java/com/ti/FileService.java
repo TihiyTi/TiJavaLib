@@ -17,6 +17,7 @@ public class FileService {
     private long writePosition = 0;
     private long readPosition = 0;
     private String fileName = "default.txt";
+    private boolean endOfFile = false;
 
     public FileService(){
         try {
@@ -74,7 +75,10 @@ public class FileService {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        if(readByte < 0){readByte = 0;}
+        if(readByte < 0){
+            readByte = 0;
+            endOfFile = true;
+        }
         return (ByteBuffer) buffer.limit(readByte);
     }
 
@@ -88,5 +92,9 @@ public class FileService {
                 e.printStackTrace();
             }
         }
+    }
+
+    public boolean isEndOfFile(){
+        return endOfFile;
     }
 }
