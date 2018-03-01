@@ -63,7 +63,7 @@ public class SawUnitTest {
         box.addTypedConsumer(ecg2Saver, MechaSignalType.ECG2);
 
         Path file = Paths.get(this.getClass().getResource(TEST_FILE).toURI());
-        FileByteProducer device = new FileByteProducer(file, FileByteProducer.ReadType.READ_CONTINIOUS);
+        FileByteProducer device = new FileByteProducer(file, FileByteProducer.ReadType.READ_ALL);
         // TODO: 21.01.2018 remove after full migrate to commlite
         device.liteProtocol = true;
         device.setProtocol(unit);

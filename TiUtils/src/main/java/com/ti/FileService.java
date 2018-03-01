@@ -65,7 +65,11 @@ public class FileService {
     }
 
     public ByteBuffer readBytes(){
-        ByteBuffer buffer = ByteBuffer.allocate(1000);
+        return readBytes(1000);
+    }
+
+    public ByteBuffer readBytes(int byteToRead){
+        ByteBuffer buffer = ByteBuffer.allocate(byteToRead);
         Future<Integer> future = channel.read(buffer, readPosition);
         int readByte = 0;
         try {
