@@ -6,6 +6,8 @@ import com.ti.comm.core.protocol.Protocol;
 import com.ti.comm.core.protocol.SerialControllable;
 import com.ti.comm.dev.DeviceInterface;
 import com.ti.commlite.core.checkers.CommandSplittableLite;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -16,11 +18,15 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.stream.Collectors;
 
 public abstract class AbstractProtocolLite<RESPONSE, REQUEST> implements Protocol<RESPONSE, REQUEST> {
+    private static final Logger LOG = LogManager.getLogger("TiSerialServiceLogger");
+
     private ProtocolCheckable protocolChecker;
     private CommandSplittableLite commandSplitter;
 
     protected SerialControllable<RESPONSE, REQUEST> controller;
     private DeviceInterface device;
+
+    int protocolToControllerRequestCounter = 0;
 
     public AbstractProtocolLite(ProtocolCheckable protocolChecker, CommandSplittableLite commandSplitter) {
         this.protocolChecker = protocolChecker;
@@ -38,6 +44,14 @@ public abstract class AbstractProtocolLite<RESPONSE, REQUEST> implements Protoco
             if(!frameQueue.isEmpty()){
                 List<REQUEST> listOfRequest = frameQueue.stream().map(this::createByteToRequest).collect(Collectors.toList());
                 listOfRequest.forEach(x->controller.serviceRequest(x));
+
+
+//-----------------TRACE block  -----------------
+                protocolToControllerRequestCounter++;
+                if(protocolToControllerRequestCounter % 10 == 0){
+                    LOG.trace("protocolToControllerRequestCounter = "+protocolToControllerRequestCounter);
+                }
+//-----------------TRACE block  -----------------
             }
         }
     }

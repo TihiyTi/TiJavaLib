@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class SawProtocolParser implements ProtocolParser {
-    private static final Logger LOG = LogManager.getLogger("serialServiceLogger");
+    private static final Logger LOG = LogManager.getLogger("TiSerialServiceLogger");
 
     private int dataSizeInByte;
     private int wordSizeInByte;

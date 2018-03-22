@@ -10,8 +10,12 @@ public class SignalPipe<IN extends Number, OUT extends Number> implements PipeIn
     private MultySignalProvider<OUT, ? extends Enum> boxConsumer;
     private Enum boxConsumerType;
 
+    private int inputPipeCount = 0;
+
     @Override
     public void putElement(IN element) {
+        inputPipeCount++;
+//        System.out.println("Input "+ inputPipeCount +" : " +element.toString());
         serviceList.get(0).putElement(element);
     }
 
@@ -47,6 +51,7 @@ public class SignalPipe<IN extends Number, OUT extends Number> implements PipeIn
         public void putElement(OUT element) {
             consumerSet.forEach(x -> x.putElement(element));
             if(boxConsumer!=null){
+//                System.out.println("OutPut "+ inputPipeCount +" : " +element.toString());
                 boxConsumer.addToQueue(boxConsumerType, element);
             }
         }

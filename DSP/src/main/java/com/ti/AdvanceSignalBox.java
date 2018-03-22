@@ -1,5 +1,8 @@
 package com.ti;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -8,6 +11,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.stream.Collectors;
 
 public class AdvanceSignalBox<N extends Number, T  extends Enum<T>> implements MultySignalProvider<N,T> {
+
+//-----------------TRACE block  -----------------
+    private static final Logger LOG = LogManager.getLogger("TiSerialServiceLogger");
+    private int totalAddedElement = 0;
+//-----------------TRACE block  -----------------
 
     private Map<T, BlockingQueue<N>>  map             = new HashMap<>();
     private Map<T, Set<SignalConsumer<N>>>    mapOfConsumer   = new HashMap<>();
@@ -19,12 +27,25 @@ public class AdvanceSignalBox<N extends Number, T  extends Enum<T>> implements M
 
     @Override
     public void addTypedConsumer(SignalConsumer<N> consumer, T type) {
+        LOG.debug("SignalConsumer " +consumer.toString() + " with type "+ type.name() + " addToMap");
         mapOfConsumer.get(type).add(consumer);
     }
     @Override
     public void addToQueue(Enum type, N element){
+
+//-----------------TRACE block  -----------------
+        totalAddedElement++;
+//        if(totalAddedElement % 10000 == 0){
+//            LOG.trace(map.get(type).size() + " elements added to box with type "+ type.name());
+//        }
+//-----------------TRACE block  -----------------
+
         BlockingQueue<N> queue = map.get(type);
         try {
+//            if(type.name().equals("ECG2FILTR")){
+//                System.out.println("AddToBox " +type.name()+" : " +element.toString());
+//            }
+
             queue.put(element);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -39,20 +60,31 @@ public class AdvanceSignalBox<N extends Number, T  extends Enum<T>> implements M
             Set<SignalConsumer<N>> set = new HashSet<>();
             map.put(c, queue);
             mapOfConsumer.put(c, set);
-            runNotificationService(set, queue, c);
+            runNotificationService(mapOfConsumer, queue, c);
         }
         listOfType = list;
     }
 
-    private void runNotificationService(Set<SignalConsumer<N>> consumerSet, BlockingQueue<N> queue, Enum t){
+    private void runNotificationService(Map<T, Set<SignalConsumer<N>>>    map, BlockingQueue<N> queue, T t){
         Executors.newSingleThreadScheduledExecutor().execute(()->{
+//            Double[] array = new Double[20];
+            int index = 0;
             while(true){
                 try {
                     //todo добавить возможность буфферезированной обработки
                     N element = queue.take();
+//                    array[index] = element.doubleValue();
+//                    index++;
+//                    if(index == 5){
+//                        index = 0;
+//                        map.get(t).forEach(x-> x.putDoubles(array));
+//                    }
+                    map.get(t).forEach(x-> x.putElement(element));
+
+//                    if(t.name() == "ECG1"){
+//                    }
 //                    System.out.println("Extract "+element.doubleValue()+"  from  "+ t.name());
 //                    System.out.println("CSS = "+consumerSet.size()+"  from  "+ t.name());
-                    consumerSet.forEach(x-> x.putElement(element));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

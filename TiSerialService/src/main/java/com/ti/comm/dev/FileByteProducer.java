@@ -3,6 +3,8 @@ package com.ti.comm.dev;
 import com.ti.FileService;
 import com.ti.comm.core.protocol.AbstractProtocol;
 import com.ti.comm.core.protocol.Protocol;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -13,8 +15,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class FileByteProducer implements DeviceInterface{
+    private static final Logger LOG = LogManager.getLogger("TiSerialServiceLogger");
+
     private ConcurrentLinkedDeque<Byte> deque = new ConcurrentLinkedDeque<Byte>();
 
+    private int totalReadedByte = 0;
 
     private Protocol protocol;
     private Path filePath;
@@ -62,6 +67,12 @@ public class FileByteProducer implements DeviceInterface{
         while(!empty){
             ByteBuffer buffer = service.readBytes();
             int readByte = buffer.limit();
+
+            totalReadedByte = totalReadedByte + readByte;
+            if(totalReadedByte%10000 == 0){
+                LOG.trace(""+ totalReadedByte+ " byte was read from file.");
+            }
+
             if(readByte==0){
                 empty=true;
             }else{

@@ -8,6 +8,7 @@ import com.ti.comm.core.protocol.Protocol;
 import com.ti.comm.core.protocol.SerialControllable;
 import com.ti.commlite.core.checkers.CommandSplittableLite;
 import com.ti.commlite.core.command.AbstractSawCommand;
+import com.ti.commlite.core.command.SignalParamGetter;
 import com.ti.commlite.core.protocol.AbstractProtocolLite;
 
 import java.nio.ByteBuffer;
@@ -40,7 +41,13 @@ public class SawUnit<COMMAND_TYPE extends AbstractCommand>
 
     @Override
     public void serviceRequest(AbstractCommand abstractCommand) {
-        box.listOfType.forEach(x-> box.addToQueue((Enum)x, ((AbstractSawCommand)abstractCommand).getData((Enum) x)));
+        box.listOfType.forEach(x-> {
+            int data = ((AbstractSawCommand)abstractCommand).getData((Enum) x);
+            // TODO: 18.03.2018 вынести фильтрацию в AdvanceSignalBox, добавить еще один list помимо listOfType
+            if(((SignalParamGetter)x).isExternal()){
+                box.addToQueue((Enum)x, data);
+            }
+        });
     }
 
     @Override

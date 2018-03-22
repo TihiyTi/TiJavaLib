@@ -1,10 +1,25 @@
 package com.ti.commlite.implem.command;
 
-public enum MechaSignalType {
-    REO1,
-    CUR1,
-    ECG1,
-    REO2,
-    ECG2,
-    CUR2
+import com.ti.commlite.core.command.SignalParamGetter;
+
+public enum MechaSignalType implements SignalParamGetter {
+    REO1 (true),
+    CUR1(true),
+    ECG1(true),
+    REO2(true),
+    ECG2(true),
+    CUR2(true),
+    ECG2FILTR(false),
+    REO2FILTR(false);
+
+    boolean external;
+
+    MechaSignalType(boolean b) {
+        external = b;
+    }
+
+    @Override
+    public boolean isExternal(){
+        return external;
+    }
 }
