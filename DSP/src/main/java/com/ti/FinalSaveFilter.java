@@ -30,7 +30,7 @@ public class FinalSaveFilter<IN extends Number> extends SignalService<IN, Number
         list.add(element);
         if(print){
             LOG.trace(name + "   "+ element.toString());
-            System.out.println(name +"  "+ list.size()+ "  " + element.toString());
+//            System.out.println(name +"  "+ list.size()+ "  " + element.toString());
         }
     }
 
