@@ -29,7 +29,7 @@ public class ComPortWorker implements DeviceInterface{
     // and remove @deprecated method
     public boolean liteProtocol = false;
 
-    FileService fileService = new FileService("data/out.bin");
+    private FileService fileService = new FileService("data/out.bin");
 
     public ComPortWorker() {
         String portName = PropertiesService.getGlobalProperty(PORT_NAME);
@@ -47,6 +47,9 @@ public class ComPortWorker implements DeviceInterface{
             baudRate = Integer.valueOf(baudRateString);
         }
         openPort(portName, baudRate);
+    }
+    public ComPortWorker(String portName, int speed){
+        openPort(portName, speed);
     }
 
     public void openPort(String portName, int speed) {
@@ -136,7 +139,7 @@ public class ComPortWorker implements DeviceInterface{
                 for (byte element: buf){
                     deque.add(element);
                 }
-
+                LOG.info("Recieve " + buf.length + " bytes from " + port.getPortName());
                 if(liteProtocol){
                     protocol.parse(deque);
                 }else {
