@@ -79,11 +79,11 @@ public class AdvanceSignalBox<N extends Number, T  extends Enum<T>> implements M
 //                        index = 0;
 //                        map.get(t).forEach(x-> x.putDoubles(array));
 //                    }
+//                    if(t.name() == "REO1"){
+//                        System.out.println("Extract "+element.doubleValue()+"  from  "+ t.name());
+//                    }
                     map.get(t).forEach(x-> x.putElement(element));
 
-//                    if(t.name() == "ECG1"){
-//                    }
-//                    System.out.println("Extract "+element.doubleValue()+"  from  "+ t.name());
 //                    System.out.println("CSS = "+consumerSet.size()+"  from  "+ t.name());
                 } catch (InterruptedException e) {
                     e.printStackTrace();

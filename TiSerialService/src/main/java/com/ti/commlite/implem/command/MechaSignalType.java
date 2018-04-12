@@ -12,7 +12,10 @@ public enum MechaSignalType implements SignalParamGetter {
     ECG2FILTR(false),
     REO2FILTR(false),
     BREATHMIN(false),
-    BREATHMAX(false);
+    BREATHMAX(false),
+
+    REO1CLEAR(false),
+    REO2CLEAR(false);
 
 
     boolean external;
