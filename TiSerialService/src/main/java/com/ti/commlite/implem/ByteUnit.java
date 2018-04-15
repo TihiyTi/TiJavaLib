@@ -22,29 +22,29 @@ public class ByteUnit
     public void parse(ConcurrentLinkedDeque<Byte> deque){
         System.out.println("Unsupported");
     }
-
     @Override
     public ByteBuffer createResponseToByte(Byte aByte) {
         return null;
     }
-
     @Override
     public Byte createByteToRequest(ByteBuffer buffer) {
         return null;
     }
-
     @Override
     public void serviceRequest(Byte aByte) {
 
     }
-
     @Override
     public void toServiceResponse(Byte aByte) {
 
     }
-
     @Override
     public void addProtocol(Protocol<Byte, Byte> protocol) {
 
+    }
+
+    // TODO: 15.04.2018 добавить цепочку отправки единичных байтов
+    public void send(Byte b){
+        sendWithOutProtocol(ByteBuffer.wrap(new byte[]{b}));
     }
 }

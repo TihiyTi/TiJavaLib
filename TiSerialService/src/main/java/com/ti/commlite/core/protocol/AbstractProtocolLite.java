@@ -64,6 +64,11 @@ public abstract class AbstractProtocolLite<RESPONSE, REQUEST> implements Protoco
         device.sendDataArray(buffer);
     }
 
+    // TODO: 15.04.2018 вынести в Protocol
+    public void sendWithOutProtocol(ByteBuffer buffer){
+        device.sendDataArray(buffer);
+    }
+
     @Override
     public void setDevice(DeviceInterface device){this.device = device;}
 

@@ -15,10 +15,9 @@ public class FlagSetterIfDataIncome<IN extends Number> extends SignalService<IN,
 
     @Override
     public void putElement(IN element) {
-//        state.set(stateToSet);
+        state.set(stateToSet);
         if(stateToSet){
             System.out.println("Breath IN");
-
         }else {
             System.out.println("Breath OUT");
         }
