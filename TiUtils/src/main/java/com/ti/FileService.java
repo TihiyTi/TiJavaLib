@@ -86,7 +86,7 @@ public class FileService {
         return (ByteBuffer) buffer.limit(readByte);
     }
 
-    private void preparePath(){
+     private void preparePath(){
         if(fileName.contains("/")){
             String[] folders = fileName.split("/");
             String dirPath = fileName.substring(0,fileName.length() - folders[folders.length-1].length());
