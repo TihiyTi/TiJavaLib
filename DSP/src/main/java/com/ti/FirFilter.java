@@ -4,12 +4,14 @@ import com.google.common.primitives.Doubles;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class FirFilter<IN extends Number, OUT extends Number> extends SignalService<IN, OUT>{
     private double[] kernel;
     private int bufferSize;
     private List<Number> buffer = new ArrayList<>();
 
+    private boolean isHeatNeed = false;
 
     public FirFilter(double ... kernel) {
         this.kernel = kernel;
@@ -24,10 +26,11 @@ public class FirFilter<IN extends Number, OUT extends Number> extends SignalServ
         nextConsumer.putElement(apply(element));
     }
 
-    private OUT apply(IN element) {
+    public OUT apply(IN element) {
         Double el = element.doubleValue();
-        if(kernel == null){
+        if(isHeatNeed){heat(el); isHeatNeed = false;}
 
+        if(kernel == null){
             return (OUT)el;
         }else{
             buffer.add(el);
@@ -38,6 +41,16 @@ public class FirFilter<IN extends Number, OUT extends Number> extends SignalServ
                 result = (result + bufferArray[i]*kernel[bufferSize-1-i]);
             }
             return (OUT)result;
+        }
+    }
+
+    public void enableHeatNeed(){
+        isHeatNeed = true;
+    }
+    private void heat(Number el ){
+        buffer.clear();
+        for (double ignored : kernel) {
+            buffer.add(el);
         }
     }
 }
