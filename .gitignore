@@ -8,3 +8,9 @@ build/
 TiSerialService/log/
 
 TiJavaLib\.iml
+
+DSP/out/
+
+TiUtils/out/
+
+TiSerialService/out/

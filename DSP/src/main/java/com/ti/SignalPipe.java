@@ -2,18 +2,18 @@ package com.ti;
 
 import java.util.*;
 
-public class SignalPipe<IN extends Number, OUT extends Number> implements PipeInterface<IN, OUT> {
-    private List<SignalConsumer<Number>> serviceList = new ArrayList<>();
+public class SignalPipe implements PipeInterface {
+    private List<SignalConsumer> serviceList = new ArrayList<>();
 
     private FinalConsumer finalConsumer = new FinalConsumer(); ///
-    private Set<SignalConsumer<OUT>> consumerSet = new HashSet<>();
-    private MultySignalProvider<OUT, ? extends Enum> boxConsumer;
+    private Set<SignalConsumer> consumerSet = new HashSet<>();
+    private MultySignalProvider<? extends Enum> boxConsumer;
     private Enum boxConsumerType;
 
     private int inputPipeCount = 0;
 
     @Override
-    public void putElement(IN element) {
+    public void putElement(Number element) {
         inputPipeCount++;
 //        System.out.println("Input "+ inputPipeCount +" : " +element.toString());
         serviceList.get(0).putElement(element);
@@ -24,11 +24,11 @@ public class SignalPipe<IN extends Number, OUT extends Number> implements PipeIn
      * @param consumer - comsumer
      */
     @Override
-    public void addConsumer(SignalConsumer<OUT> consumer) {
+    public void addConsumer(SignalConsumer consumer) {
         consumerSet.add(consumer);
     }
 
-    public void addMultyConsumer(MultySignalProvider<OUT, ? extends Enum> boxConsumer, Enum type){
+    public void addMultyConsumer(MultySignalProvider<? extends Enum> boxConsumer, Enum type){
         this.boxConsumer = boxConsumer;
         boxConsumerType = type;
     }
@@ -38,17 +38,17 @@ public class SignalPipe<IN extends Number, OUT extends Number> implements PipeIn
      * @param services - list of filters
      */
     @SafeVarargs
-    public final void addSignalServices(SignalService<Number, Number>... services){
+    public final void addSignalServices(SignalService... services){
         for (int i = 0; i < services.length - 1; i++) {
             services[i].addConsumer(services[i+1]);
         }
-        services[services.length - 1].addConsumer((SignalConsumer<Number>)finalConsumer);
+        services[services.length - 1].addConsumer(finalConsumer);
         serviceList.addAll(Arrays.asList(services));
     }
 
-    private class FinalConsumer implements SignalConsumer<OUT> {
+    private class FinalConsumer implements SignalConsumer{
         @Override
-        public void putElement(OUT element) {
+        public void putElement(Number element) {
             consumerSet.forEach(x -> x.putElement(element));
             if(boxConsumer!=null){
 //                System.out.println("OutPut "+ inputPipeCount +" : " +element.toString());

@@ -3,7 +3,7 @@ package com.ti;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CrossZeroType1Finder<IN extends Number> extends SignalService <IN, Number>{
+public class CrossZeroType1Finder extends SignalService {
 
     private List<Number> buffer = new ArrayList<>();
     private int count = 0;
@@ -19,14 +19,14 @@ public class CrossZeroType1Finder<IN extends Number> extends SignalService <IN, 
     }
 
     @Override
-    public void putElement(IN element) {
+    public void putElement(Number element) {
         if(check(element)){
             System.out.println("Find Zero " + direction.name()+" "+(count - delayInSample));
             nextConsumer.putElement((count - delayInSample));
         }
     }
 
-    private Boolean check(IN element) {
+    private Boolean check(Number element) {
         Double el = element.doubleValue();
         buffer.add(el);
         count++;

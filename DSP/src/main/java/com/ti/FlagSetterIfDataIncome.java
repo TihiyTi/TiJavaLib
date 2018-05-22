@@ -2,7 +2,7 @@ package com.ti;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class FlagSetterIfDataIncome<IN extends Number> extends SignalService<IN, Number> {
+public class FlagSetterIfDataIncome extends SignalService {
 
     private AtomicBoolean state;
     private boolean stateToSet;
@@ -14,7 +14,7 @@ public class FlagSetterIfDataIncome<IN extends Number> extends SignalService<IN,
 
 
     @Override
-    public void putElement(IN element) {
+    public void putElement(Number element) {
         state.set(stateToSet);
         if(stateToSet){
             System.out.println("Breath IN");

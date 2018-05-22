@@ -1,14 +1,14 @@
 package com.ti;
 
-abstract class SignalService<IN extends Number, OUT extends Number> implements SignalConsumer<IN>,SignalProvider<OUT> {
+abstract class SignalService implements SignalConsumer, SignalProvider {
 
-    SignalConsumer<OUT> nextConsumer;
+    SignalConsumer nextConsumer;
 
     @Override
-    public void addConsumer(SignalConsumer<OUT> consumer) {
+    public void addConsumer(SignalConsumer consumer) {
         this.nextConsumer = consumer;
     }
 
     @Override
-    public abstract void putElement(IN element);
+    public abstract void putElement(Number element);
 }

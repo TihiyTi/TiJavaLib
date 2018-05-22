@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class FinalSaveFilter<IN extends Number> extends SignalService<IN, Number>{
+public class FinalSaveFilter extends SignalService{
 
     private static final Logger LOG = LogManager.getLogger("DataLogger");
 
-    private ConcurrentLinkedQueue<IN> list = new ConcurrentLinkedQueue<>();
+    private ConcurrentLinkedQueue<Number> list = new ConcurrentLinkedQueue<>();
 
 //  Debug functional
     private String name = "";
@@ -26,7 +26,7 @@ public class FinalSaveFilter<IN extends Number> extends SignalService<IN, Number
     public FinalSaveFilter(){}
 
     @Override
-    public void putElement(IN element) {
+    public void putElement(Number element) {
         list.add(element);
         if(print){
             LOG.trace(name + "   "+ element.toString());
@@ -34,7 +34,7 @@ public class FinalSaveFilter<IN extends Number> extends SignalService<IN, Number
         }
     }
 
-    public ConcurrentLinkedQueue<IN> getResult(){
+    public ConcurrentLinkedQueue<Number> getResult(){
         return list;
     }
 }

@@ -10,15 +10,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.stream.Collectors;
 
-public class AdvanceSignalBox<N extends Number, T  extends Enum<T>> implements MultySignalProvider<N,T> {
+public class AdvanceSignalBox<T  extends Enum<T>> implements MultySignalProvider<T> {
 
 //-----------------TRACE block  -----------------
     private static final Logger LOG = LogManager.getLogger("TiSerialServiceLogger");
     private int totalAddedElement = 0;
 //-----------------TRACE block  -----------------
 
-    private Map<T, BlockingQueue<N>>  map             = new HashMap<>();
-    private Map<T, Set<SignalConsumer<N>>>    mapOfConsumer   = new HashMap<>();
+    private Map<T, BlockingQueue<Number>>  map             = new HashMap<>();
+    private Map<T, Set<SignalConsumer>>    mapOfConsumer   = new HashMap<>();
     public List<T> listOfType;
 
     public AdvanceSignalBox(Class<T> enumType) {
@@ -26,12 +26,12 @@ public class AdvanceSignalBox<N extends Number, T  extends Enum<T>> implements M
     }
 
     @Override
-    public void addTypedConsumer(SignalConsumer<N> consumer, T type) {
+    public void addTypedConsumer(SignalConsumer consumer, T type) {
         LOG.debug("SignalConsumer " +consumer.toString() + " with type "+ type.name() + " addToMap");
         mapOfConsumer.get(type).add(consumer);
     }
     @Override
-    public void addToQueue(Enum type, N element){
+    public void addToQueue(Enum type, Number element){
 
 //-----------------TRACE block  -----------------
         totalAddedElement++;
@@ -40,7 +40,7 @@ public class AdvanceSignalBox<N extends Number, T  extends Enum<T>> implements M
 //        }
 //-----------------TRACE block  -----------------
 
-        BlockingQueue<N> queue = map.get(type);
+        BlockingQueue<Number> queue = map.get(type);
         try {
 //            if(type.name().equals("ECG2FILTR")){
 //                System.out.println("AddToBox " +type.name()+" : " +element.toString());
@@ -56,8 +56,8 @@ public class AdvanceSignalBox<N extends Number, T  extends Enum<T>> implements M
         List<T> list = EnumSet.allOf(enumType).stream().sorted().collect(Collectors.toList());
         for (T c : list) {
 //            System.out.println(c.name());
-            BlockingQueue<N> queue = new LinkedBlockingQueue<>();
-            Set<SignalConsumer<N>> set = new HashSet<>();
+            BlockingQueue<Number> queue = new LinkedBlockingQueue<>();
+            Set<SignalConsumer> set = new HashSet<>();
             map.put(c, queue);
             mapOfConsumer.put(c, set);
             runNotificationService(mapOfConsumer, queue, c);
@@ -65,14 +65,14 @@ public class AdvanceSignalBox<N extends Number, T  extends Enum<T>> implements M
         listOfType = list;
     }
 
-    private void runNotificationService(Map<T, Set<SignalConsumer<N>>>    map, BlockingQueue<N> queue, T t){
+    private void runNotificationService(Map<T, Set<SignalConsumer>>    map, BlockingQueue<Number> queue, T t){
         Executors.newSingleThreadScheduledExecutor().execute(()->{
 //            Double[] array = new Double[20];
             int index = 0;
             while(true){
                 try {
                     //todo добавить возможность буфферезированной обработки
-                    N element = queue.take();
+                    Number element = queue.take();
 //                    array[index] = element.doubleValue();
 //                    index++;
 //                    if(index == 5){

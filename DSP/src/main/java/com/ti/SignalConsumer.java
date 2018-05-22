@@ -1,6 +1,6 @@
 package com.ti;
 
-public interface SignalConsumer<N extends Number>{
-    void putElement(N element);
+public interface SignalConsumer{
+    void putElement(Number element);
     default void putDoubles(Double ... elements){}
 }

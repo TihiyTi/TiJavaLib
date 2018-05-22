@@ -1,6 +1,5 @@
 package com.ti.comm.dev;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import com.ti.FileService;
 import com.ti.PropertiesService;
 import com.ti.comm.core.protocol.AbstractProtocol;
@@ -108,7 +107,7 @@ public class ComPortWorker implements DeviceInterface{
             }
         }else{
             // TODO: 13.03.2017 добавить логирования события
-            System.out.println("Port NO open. Data don't send.");
+//            System.out.println("Port NO open. Data don't send.");
         }
     }
 
