@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class FirFilter<IN extends Number, OUT extends Number> extends SignalService<IN, OUT>{
+public class FirFilter extends SignalService{
     private double[] kernel;
     private int bufferSize;
     private List<Number> buffer = new ArrayList<>();
@@ -21,17 +21,17 @@ public class FirFilter<IN extends Number, OUT extends Number> extends SignalServ
     }
 
     @Override
-    public void putElement(IN element) {
+    public void putElement(Number element) {
         Number el = element.doubleValue();
         nextConsumer.putElement(apply(element));
     }
 
-    public OUT apply(IN element) {
+    public Number apply(Number element) {
         Double el = element.doubleValue();
         if(isHeatNeed){heat(el); isHeatNeed = false;}
 
         if(kernel == null){
-            return (OUT)el;
+            return el;
         }else{
             buffer.add(el);
             buffer.remove(0);
@@ -40,7 +40,7 @@ public class FirFilter<IN extends Number, OUT extends Number> extends SignalServ
             for (int i = 0; i < bufferSize; i++) {
                 result = (result + bufferArray[i]*kernel[bufferSize-1-i]);
             }
-            return (OUT)result;
+            return result;
         }
     }
 

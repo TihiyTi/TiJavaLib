@@ -1,7 +1,7 @@
 package com.ti;
 
 abstract class AbstractSignalManager<TYPE extends Enum<TYPE>> {
-    AdvanceSignalBox<Number, TYPE> box;
+    AdvanceSignalBox<TYPE> box;
 
     AbstractSignalManager(Class<TYPE> typeClass){
         box = new AdvanceSignalBox<>(typeClass);
@@ -15,7 +15,7 @@ abstract class AbstractSignalManager<TYPE extends Enum<TYPE>> {
         pipe.addMultyConsumer(box, type);
     }
 
-    public AdvanceSignalBox<Number, TYPE> getBox() {
+    public AdvanceSignalBox<TYPE> getBox() {
         return box;
     }
 }

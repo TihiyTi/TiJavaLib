@@ -7,7 +7,7 @@ public class SignalPipe<IN extends Number, OUT extends Number> implements PipeIn
 
     private FinalConsumer finalConsumer = new FinalConsumer(); ///
     private Set<SignalConsumer<OUT>> consumerSet = new HashSet<>();
-    private MultySignalProvider<OUT, ? extends Enum> boxConsumer;
+    private MultySignalProvider<? extends Enum> boxConsumer;
     private Enum boxConsumerType;
 
     private int inputPipeCount = 0;
@@ -28,7 +28,7 @@ public class SignalPipe<IN extends Number, OUT extends Number> implements PipeIn
         consumerSet.add(consumer);
     }
 
-    public void addMultyConsumer(MultySignalProvider<OUT, ? extends Enum> boxConsumer, Enum type){
+    public void addMultyConsumer(MultySignalProvider<? extends Enum> boxConsumer, Enum type){
         this.boxConsumer = boxConsumer;
         boxConsumerType = type;
     }
@@ -38,7 +38,7 @@ public class SignalPipe<IN extends Number, OUT extends Number> implements PipeIn
      * @param services - list of filters
      */
     @SafeVarargs
-    public final void addSignalServices(SignalService<Number, Number>... services){
+    public final void addSignalServices(SignalService... services){
         for (int i = 0; i < services.length - 1; i++) {
             services[i].addConsumer(services[i+1]);
         }
