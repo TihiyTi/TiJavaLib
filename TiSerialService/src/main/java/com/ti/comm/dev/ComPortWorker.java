@@ -13,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.nio.ByteBuffer;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class ComPortWorker implements DeviceInterface{
     private static final Logger LOG = LogManager.getLogger(ComPortWorker.class.getName());
@@ -139,13 +141,18 @@ public class ComPortWorker implements DeviceInterface{
                     deque.add(element);
                 }
                 LOG.info("Recieve " + buf.length + " bytes from " + port.getPortName());
-                if(liteProtocol){
-                    protocol.parse(deque);
-                }else {
-                    if(protocol.checkProtocol(deque)){
-                        protocol.parseQueue(deque);
+
+                // TODO: 23.05.2018 need test on hardware board
+                Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(() -> {
+                    if(liteProtocol){
+                        protocol.parse(deque);
+                    }else {
+                        if(protocol.checkProtocol(deque)){
+                            protocol.parseQueue(deque);
+                        }
                     }
-                }
+                }, 0, 20, TimeUnit.MILLISECONDS);
+
             }else if (serialPortEvent.isBREAK()|serialPortEvent.isCTS()|serialPortEvent.isDSR()|serialPortEvent.isERR()|serialPortEvent.isRING()|
                     serialPortEvent.isRLSD()|serialPortEvent.isRXFLAG()|serialPortEvent.isTXEMPTY()){
                 System.out.println("Something wrong");
