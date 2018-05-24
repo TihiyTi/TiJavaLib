@@ -12,9 +12,9 @@ public class DspFilter {
     @Test
     public void signalPipeTest(){
         List<Integer> intList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
-        FinalSaveFilter<Number> fin = new FinalSaveFilter<>();
+        FinalSaveFilter fin = new FinalSaveFilter();
 
-        SignalPipe<Number,Number> pipe = getTestPipe();
+        SignalPipe pipe = getTestPipe();
         pipe.addConsumer(fin);
 
         intList.forEach(pipe::putElement);
@@ -33,7 +33,7 @@ public class DspFilter {
 
         AbstractSignalManager<TestSignalType> manager = new TestSignalManager(TestSignalType.class);
 
-        FinalSaveFilter<Number> fin = new FinalSaveFilter<>();
+        FinalSaveFilter fin = new FinalSaveFilter();
         manager.getBox().addTypedConsumer(fin, TestSignalType.SIG_2);
 
         intList.forEach(x-> manager.getBox().addToQueue(TestSignalType.SIG_1, x));
@@ -45,18 +45,18 @@ public class DspFilter {
 
     }
 
-    private SignalPipe<Number,Number> getTestPipe(){
-        SignalService<Number,Number> fir1 = new FirFilter<>(1);
-        SignalService<Number,Number> fir2 = new FirFilter<>(2);
-        SignalService<Number,Number> fir3 = new FirFilter<>(1,1,1);
+    private SignalPipe getTestPipe(){
+        SignalService fir1 = new FirFilter(1);
+        SignalService fir2 = new FirFilter(2);
+        SignalService fir3 = new FirFilter(1,1,1);
 
-        SignalPipe<Number, Number> pipe = new SignalPipe<>();
+        SignalPipe pipe = new SignalPipe();
         pipe.addSignalServices(fir1, fir2, fir3);
         return pipe;
     }
 
     class TestSignalManager extends AbstractSignalManager<TestSignalType>{
-        SignalPipe<Number,Number> pipe1 = getTestPipe();
+        SignalPipe pipe1 = getTestPipe();
 
         TestSignalManager(Class<TestSignalType> tClass) {
             super(tClass);

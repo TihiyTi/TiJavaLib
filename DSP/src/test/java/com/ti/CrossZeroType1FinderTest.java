@@ -13,9 +13,9 @@ public class CrossZeroType1FinderTest {
     @Test
     public void crossZeroType1Test(){
         List<Integer> intList = Arrays.asList(-1, 0, 7, 4, 7, 2, 7, 4, -2, 3, 1, -3, 4, -3, 4, 1, -3, 5, -1, 6);
-        FinalSaveFilter<Number> fin = new FinalSaveFilter<>();
+        FinalSaveFilter fin = new FinalSaveFilter();
 
-        SignalPipe<Number,Number> pipe = new SignalPipe<>();
+        SignalPipe pipe = new SignalPipe();
         SignalService crossZeroFilter = new CrossZeroType1Finder(3, CrossZeroType1Finder.Direction.UP);
         pipe.addSignalServices(crossZeroFilter);
 

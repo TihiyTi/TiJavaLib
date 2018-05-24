@@ -6,12 +6,21 @@ import java.util.stream.Collectors;
 
 public class MedianFilter extends SignalService {
     private int range;
+    private int threshold;
     private List<Number> buffer = new ArrayList<>();
 
     private boolean isHeatNeed = false;
 
     public MedianFilter(int range) {
         this.range = range;
+        for (int i = 0; i < range; i++) {
+            buffer.add(0);
+        }
+    }
+
+    public MedianFilter(int range, int threshold) {
+        this.range = range;
+        this.threshold = threshold;
         for (int i = 0; i < range; i++) {
             buffer.add(0);
         }
@@ -40,5 +49,4 @@ public class MedianFilter extends SignalService {
             buffer.add(el);
         }
     }
-
 }

@@ -143,7 +143,7 @@ public class ComPortWorker implements DeviceInterface{
                 LOG.info("Recieve " + buf.length + " bytes from " + port.getPortName());
 
                 // TODO: 23.05.2018 need test on hardware board
-                Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(() -> {
+//                Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(() -> {
                     if(liteProtocol){
                         protocol.parse(deque);
                     }else {
@@ -151,7 +151,7 @@ public class ComPortWorker implements DeviceInterface{
                             protocol.parseQueue(deque);
                         }
                     }
-                }, 0, 20, TimeUnit.MILLISECONDS);
+//                }, 0, 20, TimeUnit.MILLISECONDS);
 
             }else if (serialPortEvent.isBREAK()|serialPortEvent.isCTS()|serialPortEvent.isDSR()|serialPortEvent.isERR()|serialPortEvent.isRING()|
                     serialPortEvent.isRLSD()|serialPortEvent.isRXFLAG()|serialPortEvent.isTXEMPTY()){
