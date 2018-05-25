@@ -1,5 +1,5 @@
 package com.ti;
 
-public interface SignalProvider{
-    void addConsumer(SignalConsumer consumer);
+public interface SignalProvider<OUT>{
+    void addConsumer(SignalConsumer<OUT> consumer);
 }

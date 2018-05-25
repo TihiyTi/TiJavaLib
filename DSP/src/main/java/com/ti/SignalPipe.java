@@ -2,7 +2,7 @@ package com.ti;
 
 import java.util.*;
 
-public class SignalPipe implements PipeInterface {
+public class SignalPipe implements PipeNumberInterface {
     private List<SignalConsumer> serviceList = new ArrayList<>();
 
     private FinalConsumer finalConsumer = new FinalConsumer(); ///
@@ -46,7 +46,7 @@ public class SignalPipe implements PipeInterface {
         serviceList.addAll(Arrays.asList(services));
     }
 
-    private class FinalConsumer implements SignalConsumer{
+    private class FinalConsumer implements SignalConsumer<Number>{
         @Override
         public void putElement(Number element) {
             consumerSet.forEach(x -> x.putElement(element));

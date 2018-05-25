@@ -1,6 +1,6 @@
 package com.ti;
 
-abstract class SignalService implements SignalConsumer, SignalProvider {
+abstract class SignalService implements SignalConsumer<Number>, SignalProvider<Number> {
 
     SignalConsumer nextConsumer;
 
