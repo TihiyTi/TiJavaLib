@@ -15,7 +15,10 @@ public enum MechaSignalType implements SignalParamGetter {
     BREATHMAX(false),
 
     REO1CLEAR(false),
-    REO2CLEAR(false);
+    REO2CLEAR(false),
+
+    SV(false),
+    TONUS(false);
 
 
     boolean external;
