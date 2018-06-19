@@ -3,8 +3,6 @@ package com.ti.commlite.implem;
 import com.ti.AdvanceSignalBox;
 import com.ti.FinalSaveFilter;
 import com.ti.comm.dev.FileByteProducer;
-import com.ti.commlite.implem.command.MechaSawCommand;
-import com.ti.commlite.implem.command.MechaSignalType;
 import com.ti.commlite.implem.command.TestSawCommand;
 import com.ti.commlite.implem.command.TestSignalType;
 import org.junit.Assert;
