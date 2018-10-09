@@ -16,11 +16,11 @@ public class FlagSetterIfDataIncome extends SignalService {
     @Override
     public void putElement(Number element) {
         state.set(stateToSet);
-        if(stateToSet){
-            System.out.println("Breath IN");
-        }else {
-            System.out.println("Breath OUT");
-        }
+//        if(stateToSet){
+//            System.out.println("Breath IN");
+//        }else {
+//            System.out.println("Breath OUT");
+//        }
         nextConsumer.putElement(element);
     }
 }

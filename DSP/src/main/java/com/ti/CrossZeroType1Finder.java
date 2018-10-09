@@ -21,7 +21,7 @@ public class CrossZeroType1Finder extends SignalService {
     @Override
     public void putElement(Number element) {
         if(check(element)){
-            System.out.println("Find Zero " + direction.name()+" "+(count - delayInSample));
+//            System.out.println("Find Zero " + direction.name()+" "+(count - delayInSample));
             nextConsumer.putElement((count - delayInSample));
         }
     }

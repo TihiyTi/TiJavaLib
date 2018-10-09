@@ -40,6 +40,7 @@ public class FileService {
             e.printStackTrace();
         }
     }
+
     public FileService(Path path){
         try {
             channel = AsynchronousFileChannel.open(path,
@@ -84,6 +85,16 @@ public class FileService {
             endOfFile = true;
         }
         return (ByteBuffer) buffer.limit(readByte);
+    }
+
+    public void closeChannel(){
+        if(channel != null){
+            try {
+                channel.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
      private void preparePath(){

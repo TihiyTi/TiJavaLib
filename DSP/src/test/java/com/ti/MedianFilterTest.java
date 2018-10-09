@@ -1,12 +1,9 @@
 package com.ti;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Stream;
 
 public class MedianFilterTest {
     @Test
