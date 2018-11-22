@@ -44,11 +44,11 @@ project(':DSP'){
         compile group:'com.google.guava',name:'guava',version:'15.0'
     }
 }
-project(':TiUtils'){
-    dependencies {
-        testCompile group: 'commons-io', name: 'commons-io', version: '2.5'
-    }
-}
+//project(':TiUtils'){
+//    dependencies {
+//        testCompile group: 'commons-io', name: 'commons-io', version: '2.5'
+//    }
+//}
 project(':TiSerialService'){
     version = '0.2'
     dependencies{
