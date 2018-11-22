@@ -1,5 +1,5 @@
-group 'Ti'
-version 'alpha-0.1'
+//group 'Ti'
+//version 'alpha-0.1'
 
 //apply plugin: 'java'
 //apply plugin: 'idea'
@@ -8,8 +8,11 @@ version 'alpha-0.1'
 
 subprojects{
     apply plugin: 'java'
+    apply plugin: 'maven'
     apply plugin: 'idea'
+
     sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'
