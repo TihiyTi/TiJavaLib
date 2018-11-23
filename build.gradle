@@ -9,7 +9,7 @@
 subprojects{
     apply plugin: 'java'
     apply plugin: 'maven'
-    apply plugin: 'idea'
+//    apply plugin: 'idea'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
@@ -49,6 +49,7 @@ project(':DSP'){
 //        testCompile group: 'commons-io', name: 'commons-io', version: '2.5'
 //    }
 //}
+
 project(':TiSerialService'){
     version = '0.2'
     dependencies{
