@@ -1,0 +1,7 @@
+version = '0.1'
+
+dependencies {
+    compile group: 'org.apache.poi', name: 'poi', version: '4.0.0'
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.0'
+
+}
