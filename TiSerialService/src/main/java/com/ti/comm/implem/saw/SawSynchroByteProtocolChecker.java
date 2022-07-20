@@ -28,7 +28,7 @@ public class SawSynchroByteProtocolChecker implements ProtocolCheckable, Command
 
     @Override
     public boolean checkProtocol(ConcurrentLinkedDeque<Byte> deque) {
-        if(deque.peek() == inputCurrentSawValue +1){
+        if(deque.peek() == (byte)(inputCurrentSawValue +1)){
 //            inputCurrentSawValue++;
             LOG.trace("First byte "+ deque.peek() +" == "+ (inputCurrentSawValue+1)+" Size = " + deque.size());
             return true;

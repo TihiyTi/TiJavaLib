@@ -30,7 +30,7 @@ public class ComPortWorker implements DeviceInterface{
     // and remove @deprecated method
     public boolean liteProtocol = false;
 
-    private FileService fileService = new FileService("data/out.bin");
+    private FileService fileService = new FileService("data/Experiment 2019_02_28 end.bin");
 
     public ComPortWorker() {
         String portName = PropertiesService.getGlobalProperty(PORT_NAME);
