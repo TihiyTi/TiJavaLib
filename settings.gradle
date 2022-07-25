@@ -2,3 +2,4 @@
 include 'TiUtils'
 include 'TiSerialService'
 include 'DSP'
+include 'Module1'
