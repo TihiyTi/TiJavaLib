@@ -17,8 +17,8 @@ public class AdvanceSignalBox<T  extends Enum<T>> implements MultySignalProvider
     private int totalAddedElement = 0;
 //-----------------TRACE block  -----------------
 
-    private Map<T, BlockingQueue<Number>>  map             = new HashMap<>();
-    private Map<T, Set<SignalConsumer>>    mapOfConsumer   = new HashMap<>();
+    private final Map<T, BlockingQueue<Number>>  map             = new HashMap<>();
+    private final Map<T, Set<SignalConsumer<Number>>>    mapOfConsumer   = new HashMap<>();
     public List<T> listOfType;
 
     public AdvanceSignalBox(Class<T> enumType) {
@@ -57,7 +57,7 @@ public class AdvanceSignalBox<T  extends Enum<T>> implements MultySignalProvider
         for (T c : list) {
 //            System.out.println(c.name());
             BlockingQueue<Number> queue = new LinkedBlockingQueue<>();
-            Set<SignalConsumer> set = new HashSet<>();
+            Set<SignalConsumer<Number>> set = new HashSet<>();
             map.put(c, queue);
             mapOfConsumer.put(c, set);
             runNotificationService(mapOfConsumer, queue, c);
@@ -65,7 +65,7 @@ public class AdvanceSignalBox<T  extends Enum<T>> implements MultySignalProvider
         listOfType = list;
     }
 
-    private void runNotificationService(Map<T, Set<SignalConsumer>>    map, BlockingQueue<Number> queue, T t){
+    private void runNotificationService(Map<T, Set<SignalConsumer<Number>>>    map, BlockingQueue<Number> queue, T t){
         Executors.newSingleThreadScheduledExecutor().execute(()->{
 //            Double[] array = new Double[20];
             int index = 0;

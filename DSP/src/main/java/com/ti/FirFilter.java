@@ -40,6 +40,8 @@ public class FirFilter extends SignalService{
             for (int i = 0; i < bufferSize; i++) {
                 result = (result + bufferArray[i]*kernel[bufferSize-1-i]);
             }
+//            System.out.println(buffer.toString());
+//            System.out.println(result);
             return result;
         }
     }
