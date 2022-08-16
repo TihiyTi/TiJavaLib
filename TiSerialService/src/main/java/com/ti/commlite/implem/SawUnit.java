@@ -20,7 +20,6 @@ public class SawUnit<COMMAND_TYPE extends AbstractCommand>
         implements SerialControllable<AbstractCommand, AbstractCommand>{
     private Supplier<COMMAND_TYPE> supplier;
 
-
     private AdvanceSignalBox box;
 
     public SawUnit(ProtocolCheckable protocolChecker, CommandSplittableLite commandSplitter, Supplier<COMMAND_TYPE> supplier) {
