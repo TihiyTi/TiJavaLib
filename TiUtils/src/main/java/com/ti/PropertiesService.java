@@ -4,6 +4,12 @@ package com.ti;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public class PropertiesService {
@@ -24,7 +30,15 @@ public class PropertiesService {
         try {
             file = new FileInputStream(path);
             Properties mainProperties = new Properties();
-            mainProperties.load(file);
+//            mainProperties.load(file);
+
+            mainProperties.load(new InputStreamReader(file, Charset.forName("WINDOWS-1251")));
+
+
+//            byte[] readIn = Files.readAllBytes(Paths.get(path));
+//            String replacer = new String(readIn).replace("\\","\\\\");
+//            mainProperties.load(new StringReader(replacer));
+
             file.close();
             return mainProperties.getProperty(key);
         } catch (java.io.IOException e) {
