@@ -42,9 +42,9 @@ public class AdvanceSignalBox<T  extends Enum<T>> implements MultySignalProvider
 
         BlockingQueue<Number> queue = map.get(type);
         try {
-            if(type.name().equals("POINT_ONE")){
-                System.out.println("AddToBox " +type.name()+" : " +element.toString());
-            }
+//            if(type.name().equals("POINT_ONE")){
+//                System.out.println("AddToBox " +type.name()+" : " +element.toString());
+//            }
 
             queue.put(element);
         } catch (InterruptedException e) {
